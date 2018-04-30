@@ -23,7 +23,6 @@ categories: zookeeper
 参考官网文档
 http://zookeeper.apache.org/doc/r3.4.11/zookeeperStarted.html
 
-
 解压缩安装包
 
 ```tar zxvf zookeeper-3.4.11.tar.gz```
@@ -31,22 +30,32 @@ http://zookeeper.apache.org/doc/r3.4.11/zookeeperStarted.html
 切换到root(```sudo su```)后执行下面的命令:
 
 ```bash
+# 将解压后的文件移动到/usr/local目录下
 mv zookeeper-3.4.11 /usr/local/
+# 在/usr/local目录下创建名为zookeeper的符号链接指向/usr/local/zookeeper-3.4.11
 ln -s /usr/local/zookeeper-3.4.11 /usr/local/zookeeper
+# 切换到zookeeper目录，设置owner为root账户
 cd /usr/local/zookeeper-3.4.11
 chown -R root:root *
+
+# 创建data目录
 mkdir data
 
+# 将sample配置文件复制为zoo.cfg
 cp conf/zoo_sample.cfg conf/zoo.cfg
+
+# 更新默认配置
 sed -i 's~syncLimit=5~syncLimit=2~g' conf/zoo.cfg
+# 更新默认data目录
 sed -i 's~dataDir=/tmp/zookeeper~dataDir=/usr/local/zookeeper/data~g' conf/zoo.cfg
+# 在配置文件中添加cluster中各节点信息
 echo "server.1=infra-app-01:2888:3888" | tee -a conf/zoo.cfg
 echo "server.2=infra-app-02:2888:3888" | tee -a conf/zoo.cfg
 echo "server.3=infra-app-03:2888:3888" | tee -a conf/zoo.cfg
 echo "server.4=infra-app-04:2888:3888" | tee -a conf/zoo.cfg
 echo "server.5=infra-app-05:2888:3888" | tee -a conf/zoo.cfg
 echo "server.6=infra-app-06:2888:3888" | tee -a conf/zoo.cfg
-exit
+exit # 退出su模式
 ```
 
 为每台机器生成一个包含唯一ID的myid文件到data目录中，例如下面的例子在节点infra-app-01上使用1作为myid的内容:
