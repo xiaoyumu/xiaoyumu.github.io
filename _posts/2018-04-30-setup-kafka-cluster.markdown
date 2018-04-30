@@ -14,7 +14,7 @@ categories: kafka
 * 安装JDK
 * 安装Zookeeper Cluster
 
-第二步在下面6台机器上安装一个zk cluster 参考([这里](/zookeeper/2018/04/29/setup-zookeeper-cluster.html)).
+关于如何安装一个zk cluster 可以参考([这里](/zookeeper/2018/04/29/setup-zookeeper-cluster.html)).
 * infra-app-01  192.168.1.61
 * infra-app-02  192.168.1.62
 * infra-app-03  192.168.1.63
