@@ -15,22 +15,16 @@ categories: kafka
 * 安装JDK
 * 安装Zookeeper Cluster
 
-关于如何安装一个zk cluster 可以参考([这里](/zookeeper/2018/04/29/setup-zookeeper-cluster.html)).
+关于如何安装一个zk cluster 可以参考([这里]({% post_url 2018-04-29-setup-zookeeper-cluster %})).
 
 解压缩:
 
 ```tar zxvf kafka_2.11-1.0.1.tgz```
 
-切换到root执行下面的命令
-```sudo su```
-
-将安装文件移动到/usr/local下
-
-```mv kafka_2.11-1.0.1 /usr/local/```
-
-创建符号链接
+切换到root执行下面的命令```sudo su```，将安装文件移动到/usr/local下，并创建符号链接，然后设置权限。
 
 ```bash
+mv kafka_2.11-1.0.1 /usr/local/
 ln -s /usr/local/kafka_2.11-1.0.1 /usr/local/kafka
 cd /usr/local/kafka
 useradd kafka
@@ -40,26 +34,26 @@ chown -h kafka. /usr/local/kafka
 
 
 修改server.properties配置文件:
-注意下面的broker.id=后面的值，根据cluster中的机器来确定，只要保证cluster中每个broker唯一即可。
+注意下面的broker.id=后面的值，根据cluster中的broker节点机器来确定，只要保证cluster中每个broker节点唯一即可。
 
 ```bash
 sed -i 's~broker.id=0~broker.id=6~g' /usr/local/kafka/config/server.properties
 ```
 
-修改zookeeper地址
+修改zookeeper地址，下面的命令将配置文件```/usr/local/kafka/config/server.properties```中的```zookeeper.connect=localhost:2181```改为我们的zookeeper cluster节点列表：
 
 ```bash
 sed -i 's~zookeeper.connect=localhost:2181~zookeeper.connect=infra-app-01:2181,infra-app-02:2181,infra-app-03:2181,infra-app-04:2181,infra-app-05:2181,infra-app-06:2181~g' /usr/local/kafka/config/server.properties
 ```
 
 
-修改log目录
+修改默认的log存放目录：
 
 ```bash
 sed -i 's~log.dirs=/tmp/kafka-logs~log.dirs=/usr/local/kafka/kafka-logs~g' /usr/local/kafka/config/server.properties
 ```
 
-验证配置是否正确:
+完成后验证配置是否正确:
 
 ```bash
 cat /usr/local/kafka/config/server.properties | grep broker.id=
@@ -67,25 +61,25 @@ cat /usr/local/kafka/config/server.properties | grep zookeeper.connect=
 cat /usr/local/kafka/config/server.properties | grep log.dirs= 
 ```
 
-命令方式启动kafka server.
+有两种方式可以启动kafka server，其中用命令方式启动kafka server：
 
 ```
 sudo bin/kafka-server-start.sh config/server.properties
 ```
 
-以服务方式启动kafka server
+推荐以服务方式启动kafka server，创建一个kafka service unit文件
 
 ```bash
 sudo vi /etc/systemd/system/kafka.service
 ```
 
-添加以下内容:
+在```kafka.service```文件中添加以下内容:
 
 ```
 [Unit]
 Description=Apache Kafka server (broker)
 Documentation=http://kafka.apache.org/documentation.html
-Requires=network.target remote-fs.target 
+Requires=network.target remote-fs.target
 After=network.target remote-fs.target zookeeper.service
 
 [Service]
