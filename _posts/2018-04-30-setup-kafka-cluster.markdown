@@ -11,16 +11,11 @@ categories: kafka
 * [https://www.apache.org/dyn/closer.cgi?path=/kafka/1.0.1/kafka_2.11-1.0.1.tgz](https://www.apache.org/dyn/closer.cgi?path=/kafka/1.0.1/kafka_2.11-1.0.1.tgz)
 
 依赖环境准备:
+
 * 安装JDK
 * 安装Zookeeper Cluster
 
 关于如何安装一个zk cluster 可以参考([这里](/zookeeper/2018/04/29/setup-zookeeper-cluster.html)).
-* infra-app-01  192.168.1.61
-* infra-app-02  192.168.1.62
-* infra-app-03  192.168.1.63
-* infra-app-04  192.168.1.64
-* infra-app-05  192.168.1.65
-* infra-app-06  192.168.1.66
 
 解压缩:
 
