@@ -13,14 +13,13 @@ etcd 是一个高性能且安全的分布式键值数据库，广泛应用于分
 这个[链接](http://www.infoq.com/cn/articles/etcd-interpretation-application-scenario-implement-principle)也介绍了etcd的一些常见应用场景。
 
 下面是我们的基本机器信息。
-Node Name|IP|Machine Name
-----|:----|----
-etcd01|192.168.1.61|infra-app-01
-etcd02|192.168.1.62|infra-app-02
-etcd03|192.168.1.63|infra-app-03
-etcd04|192.168.1.64|infra-app-04
-etcd05|192.168.1.65|infra-app-05
-etcd06|192.168.1.66|infra-app-06
+```
+etcd01 192.168.1.61 infra-app-01
+etcd02 192.168.1.62 infra-app-02
+etcd03 192.168.1.63 infra-app-03
+etcd04 192.168.1.64 infra-app-04
+etcd05 192.168.1.65 infra-app-05
+```
 
 在 cluster 中每台机器上的 host 文件中配置所有节点机器的名称和 IP 映射:
 ```bash
@@ -29,7 +28,6 @@ echo "192.168.1.62  infra-app-02" | sudo tee -a /etc/hosts
 echo "192.168.1.63  infra-app-03" | sudo tee -a /etc/hosts
 echo "192.168.1.64  infra-app-04" | sudo tee -a /etc/hosts
 echo "192.168.1.65  infra-app-05" | sudo tee -a /etc/hosts
-echo "192.168.1.66  infra-app-06" | sudo tee -a /etc/hosts
 ```
 
 接下来首先在每个节点上安装 etcd 服务
