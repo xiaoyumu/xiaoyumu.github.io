@@ -8,7 +8,7 @@ categories: etcd
 概述
 --
 
-etcd 是一个高性能且安全的分布式键值数据库，广泛应用于分布式系统环境下的共享配置存储和服务发现，例如 k8s 。更详细的介绍可以参考 CoreOS 的官方文档，接下来我们就在6台装有 CentOS7 的 VM 中从头开始搭建一个etcd cluster。
+etcd 是一个高性能且安全的分布式键值数据库，广泛应用于分布式系统环境下的共享配置存储和服务发现，例如 k8s 。更详细的介绍可以参考 CoreOS 的官方文档，接下来我们就在5台装有 CentOS7 的 VM 中从头开始搭建一个etcd cluster。
 
 这个[链接](http://www.infoq.com/cn/articles/etcd-interpretation-application-scenario-implement-principle)也介绍了etcd的一些常见应用场景。
 
